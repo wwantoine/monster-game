@@ -14,7 +14,8 @@ let canvas;
 let ctx;
 let score = 0
 
-canvas = document.createElement("canvas");
+// canvas = document.createElement("canvas");
+canvas = document.getElementById("gameCanvas");
 ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 480;
