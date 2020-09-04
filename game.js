@@ -13,6 +13,7 @@ We also load all of our images.
 let canvas;
 let ctx;
 let score = 0
+let highScore = localStorage.getItem("userHighScore") || 0;
 
 // canvas = document.createElement("canvas");
 canvas = document.getElementById("gameCanvas");
@@ -110,13 +111,13 @@ let update = function () {
     heroX += 5;
   }
 
-  if (heroX < 0 ) {
+  if (heroX < 0) {
     heroX = canvas.width;
   }
   if (heroX > canvas.width) {
     heroX = 0
   }
-  if (heroY < 0 ) {
+  if (heroY < 0) {
     heroY = canvas.height;
   }
   if (heroY > canvas.height) {
@@ -137,6 +138,10 @@ let update = function () {
     monsterY = Math.floor(Math.random() * Math.floor(440));
     score++;
   }
+  if (score > highScore) {
+    highScore = score
+    localStorage.setItem("userHighScore", highScore);
+  }
 };
 
 /**
@@ -152,8 +157,9 @@ var render = function () {
   if (monsterReady) {
     ctx.drawImage(monsterImage, monsterX, monsterY);
   }
-  ctx.fillText(`Seconds Remaining: ${SECONDS_PER_ROUND - elapsedTime}`, 20, 100);
-  ctx.fillText(`Score: ${score}`, 20, 80);
+  ctx.fillText(`Time Remaining: ${SECONDS_PER_ROUND - elapsedTime}`, 20, 80);
+  ctx.fillText(`Score: ${score}`, 20, 100);
+  ctx.fillText(`High Score: ${highScore}`, 20, 120);
 };
 
 /**
@@ -162,12 +168,32 @@ var render = function () {
  * render (based on the state of our game, draw the right things)
  */
 var main = function () {
-  update(); 
-  render();
-  // Request to do this again ASAP. This is a special method
-  // for web browsers. 
-  requestAnimationFrame(main);
+  if (SECONDS_PER_ROUND - elapsedTime > 0) {
+    update();
+    render();
+    // Request to do this again ASAP. This is a special method
+    // for web browsers. 
+    requestAnimationFrame(main);
+  } else {
+    let status = "Game Over!";
+    ctx.textBaseline = "middle";
+    ctx.font = "30px monospace";
+    ctx.fillStyle = "#000";
+    ctx.textAlign = "center";
+    ctx.fillText(status, 250, 240);
+  }
 };
+
+// Restart game
+function restart(){
+  heroX = canvas.width / 2;
+  heroY = canvas.height / 2;
+  monsterX = 100;
+  monsterY = 100;
+  score = 0;
+  SECONDS_PER_ROUND = 30;
+  elapsedTime = 0;
+}
 
 // Cross-browser support for requestAnimationFrame.
 // Safely ignore this line. It's mostly here for people with old web browsers.
