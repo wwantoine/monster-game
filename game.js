@@ -157,9 +157,13 @@ var render = function () {
   if (monsterReady) {
     ctx.drawImage(monsterImage, monsterX, monsterY);
   }
-  ctx.fillText(`Time Remaining: ${SECONDS_PER_ROUND - elapsedTime}`, 20, 80);
-  ctx.fillText(`Score: ${score}`, 20, 100);
-  ctx.fillText(`High Score: ${highScore}`, 20, 120);
+  document.getElementById("scoreArea").innerHTML = `Score: ${score}`
+  document.getElementById("timeArea").innerHTML = `Time Remaining: ${SECONDS_PER_ROUND - elapsedTime}`
+  document.getElementById("highScoreArea").innerHTML = `High Score: ${highScore}`
+
+  // ctx.fillText(`Time Remaining: ${SECONDS_PER_ROUND - elapsedTime}`, 20, 80);
+  // ctx.fillText(`Score: ${score}`, 20, 100);
+  // ctx.fillText(`High Score: ${highScore}`, 20, 120);
 };
 
 /**
@@ -180,11 +184,9 @@ var main = function () {
 };
 
 function gameOver(){
-  // let status = "Game Over!";
-  // ctx.textBaseline = "middle";
-  // ctx.font = "30px monospace";
-  // ctx.fillStyle = "#000";
-  // ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.font = "30px monospace";
+  ctx.textAlign = "center";
   ctx.fillText("Game Over!", 300, 300);
 }
 
