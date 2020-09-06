@@ -18,8 +18,8 @@ let highScore = localStorage.getItem("userHighScore") || 0;
 // canvas = document.createElement("canvas");
 canvas = document.getElementById("gameCanvas");
 ctx = canvas.getContext("2d");
-canvas.width = 512;
-canvas.height = 480;
+canvas.width = 600;
+canvas.height = 600;
 document.body.appendChild(canvas);
 
 let bgReady, heroReady, monsterReady;
@@ -35,20 +35,20 @@ function loadImages() {
     // show the background image
     bgReady = true;
   };
-  bgImage.src = "images/background.png";
+  bgImage.src = "images/building.png";
   heroImage = new Image();
   heroImage.onload = function () {
     // show the hero image
     heroReady = true;
   };
-  heroImage.src = "images/hero.png";
+  heroImage.src = "images/baby2.png";
 
   monsterImage = new Image();
   monsterImage.onload = function () {
     // show the monster image
     monsterReady = true;
   };
-  monsterImage.src = "images/monster.png";
+  monsterImage.src = "images/burger.png";
 }
 
 /** 
@@ -128,14 +128,14 @@ let update = function () {
   // are about 32 pixels big.
   if (
     heroX <= (monsterX + 32)
-    && monsterX <= (heroX + 32)
+    && monsterX <= (heroX + 44)
     && heroY <= (monsterY + 32)
-    && monsterY <= (heroY + 32)
+    && monsterY <= (heroY + 44)
   ) {
     // Pick a new location for the monster.
     // Note: Change this to place the monster at a new, random location.
-    monsterX = Math.floor(Math.random() * Math.floor(480));
-    monsterY = Math.floor(Math.random() * Math.floor(440));
+    monsterX = Math.floor(Math.random() * Math.floor(560));
+    monsterY = Math.floor(Math.random() * Math.floor(560));
     score++;
   }
   if (score > highScore) {
@@ -175,14 +175,18 @@ var main = function () {
     // for web browsers. 
     requestAnimationFrame(main);
   } else {
-    let status = "Game Over!";
-    ctx.textBaseline = "middle";
-    ctx.font = "30px monospace";
-    ctx.fillStyle = "#000";
-    ctx.textAlign = "center";
-    ctx.fillText(status, 250, 240);
+    gameOver()
   }
 };
+
+function gameOver(){
+  // let status = "Game Over!";
+  // ctx.textBaseline = "middle";
+  // ctx.font = "30px monospace";
+  // ctx.fillStyle = "#000";
+  // ctx.textAlign = "center";
+  ctx.fillText("Game Over!", 300, 300);
+}
 
 // Restart game
 function restart(){
@@ -191,8 +195,11 @@ function restart(){
   monsterX = 100;
   monsterY = 100;
   score = 0;
-  SECONDS_PER_ROUND = 30;
+  startTime = Date.now();
   elapsedTime = 0;
+  update();
+  render();
+  requestAnimationFrame(main);
 }
 
 // Cross-browser support for requestAnimationFrame.
