@@ -12,22 +12,22 @@ We also load all of our images.
 
 let canvas;
 let ctx;
-let score = 0
+let score = 0;
+let userName = "";
+let gameHistory = []
 let highScore = localStorage.getItem("userHighScore") || 0;
 
 
-// canvas = document.createElement("canvas");
 canvas = document.getElementById("gameCanvas");
 ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 600;
-// document.body.appendChild(canvas);
 
 let bgReady, heroReady, monsterReady;
 let bgImage, heroImage, monsterImage;
 
 let startTime = Date.now();
-const SECONDS_PER_ROUND = 30;
+const SECONDS_PER_ROUND = 15;
 let elapsedTime = 0;
 
 function loadImages() {
@@ -146,7 +146,7 @@ let update = function () {
 };
 
 /**
- * This function, render, runs as often as possible.
+ * This function, q, runs as often as possible.
  */
 var render = function () {
   if (bgReady) {
@@ -161,10 +161,6 @@ var render = function () {
   document.getElementById("scoreArea").innerHTML = `Score: ${score}`
   document.getElementById("timeArea").innerHTML = `Time Remaining: ${SECONDS_PER_ROUND - elapsedTime}`
   document.getElementById("highScoreArea").innerHTML = `High Score: ${highScore}`
-
-  // ctx.fillText(`Time Remaining: ${SECONDS_PER_ROUND - elapsedTime}`, 20, 80);
-  // ctx.fillText(`Score: ${score}`, 20, 100);
-  // ctx.fillText(`High Score: ${highScore}`, 20, 120);
 };
 
 /**
@@ -178,10 +174,10 @@ var main = function () {
     render();
     // Request to do this again ASAP. This is a special method
     // for web browsers. 
-    requestAnimationFrame(main);
   } else {
     gameOver()
   }
+  requestAnimationFrame(main);
 };
 
 function gameOver(){
@@ -200,9 +196,9 @@ function restart(){
   score = 0;
   startTime = Date.now();
   elapsedTime = 0;
-  update();
-  render();
-  requestAnimationFrame(main);
+
+  console.log("time",SECONDS_PER_ROUND - elapsedTime)
+
 }
 
 // Cross-browser support for requestAnimationFrame.
@@ -211,22 +207,9 @@ var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
 // User registration
-// function userRegistration() {
-//   let storeUser = localStorage.getItem("userHistory");
-//   if (storeUser !== null) {
-//     userHistory = JSON.parse(storeUser);
-//   }
-//   let userName = document.getElementById("user").value;
-//   userName = userName.trim();
-//   if (userName != null && userName != "") {
-//     if (userHistory[userName] === undefined) {
-//       userHistory[userName] = 0;
-//     }
-//     currentUser = userName;
-//     document.getElementById("user").value = null;
-//   }
-//   updateScore();
-// }
+function userRegistration() {
+  userName = document.getElementById("userNameArea").value;
+}
 
 // Let's play this game!
 loadImages();
