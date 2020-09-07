@@ -15,12 +15,13 @@ let ctx;
 let score = 0
 let highScore = localStorage.getItem("userHighScore") || 0;
 
+
 // canvas = document.createElement("canvas");
 canvas = document.getElementById("gameCanvas");
 ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 600;
-document.body.appendChild(canvas);
+// document.body.appendChild(canvas);
 
 let bgReady, heroReady, monsterReady;
 let bgImage, heroImage, monsterImage;
@@ -208,6 +209,24 @@ function restart(){
 // Safely ignore this line. It's mostly here for people with old web browsers.
 var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
+
+// User registration
+// function userRegistration() {
+//   let storeUser = localStorage.getItem("userHistory");
+//   if (storeUser !== null) {
+//     userHistory = JSON.parse(storeUser);
+//   }
+//   let userName = document.getElementById("user").value;
+//   userName = userName.trim();
+//   if (userName != null && userName != "") {
+//     if (userHistory[userName] === undefined) {
+//       userHistory[userName] = 0;
+//     }
+//     currentUser = userName;
+//     document.getElementById("user").value = null;
+//   }
+//   updateScore();
+// }
 
 // Let's play this game!
 loadImages();

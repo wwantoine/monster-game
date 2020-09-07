@@ -1,5 +1,8 @@
 body {
-    background-color: black;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://i.pinimg.com/originals/29/fe/92/29fe921733e230ef2466c5d57b6d8e3f.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
     color: white;
     height: 100%;
     display: flex;

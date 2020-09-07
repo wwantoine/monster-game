@@ -14,24 +14,23 @@
 
 <body>
   <div class="container-fluid">
-    <div class="row h-100">
-      <div class="col-4 col-layout">
-        <h1>Hi</h1>
-        <p>This is a paragraph explaining the game</p>
+    <div class="row" style="height: 100vh;">
+      <div class="col-lg-4 col-md-12" style="padding-left: 5%; padding-top: 3%">
+        <h1 style="text-align: center;">Monster game</h1>
+        <p class="lead">Eat all the burgers, be the greatest!</p>
         <div class="input-group">
-          <input type="text" id="user" placeholder="Your Pseudonymn" style="margin-right: 5px;"/>
+          <input type="text" id="user" placeholder="Your Pseudonymn" />
           <button class="input-group-addon" onclick="userRegistration()" type="button">Submit</button>
         </div>
         <button onclick="restart()">Restart</button>
-        <ul style="list-style-type:none;">
-          <li id="timeArea"></li>
-          <li id="scoreArea"></li>
-          <li id="highScoreArea"></li>
-        </ul>
+        <div class="lead" id="timeArea"></div>
+        <div class="lead" id="scoreArea"></div>
+        <div class="lead" id="highScoreArea"></div>
       </div>
-      </div>
-      <div class="col-8">
-        <canvas id="gameCanvas"></canvas>
+      <div class="col-lg-8 col-md-12 col-layout">
+        <div style="height: 600px;">
+          <canvas id="gameCanvas"></canvas>
+        </div>
       </div>
     </div>
   </div>
